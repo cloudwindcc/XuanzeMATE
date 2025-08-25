@@ -37,8 +37,8 @@ const ChatParticles = () => {
       }
     }
 
-    // 创建光子粒子 - 更多粒子，更丰富的效果
-    for (let i = 0; i < 120; i++) {
+    // 创建光子粒子 - 优化性能，减少到40个粒子
+    for (let i = 0; i < 40; i++) {
       const type = Math.random() > 0.7 ? 'photon' : 'normal'
       const baseHue = type === 'photon' ? Math.random() * 60 + 180 : Math.random() * 60 + 200
       

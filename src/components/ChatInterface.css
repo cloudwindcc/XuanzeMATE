@@ -302,6 +302,120 @@
   }
 }
 
+/* 移动端响应式设计 */
+@media (max-width: 768px) {
+  .chat-interface {
+    height: 100vh;
+  }
+  
+  .chat-header {
+    padding: 12px 16px;
+    gap: 8px;
+  }
+  
+  .chat-header h2 {
+    font-size: 18px;
+  }
+  
+  .subtitle {
+    font-size: 12px;
+    display: none; /* 在小屏幕上隐藏副标题 */
+  }
+  
+  .model-selector select {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+  
+  .messages-container {
+    padding: 16px;
+    gap: 12px;
+  }
+  
+  .message {
+    max-width: 90%;
+  }
+  
+  .welcome-message {
+    padding: 24px;
+    margin: 20px 0;
+  }
+  
+  .welcome-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+  
+  .welcome-message h3 {
+    font-size: 16px;
+  }
+  
+  .welcome-message p {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  
+  .message-content {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  
+  .input-container {
+    padding: 16px;
+  }
+  
+  .message-input {
+    padding: 16px 12px;
+    font-size: 16px; /* 移动端增加字体大小便于输入 */
+    min-height: 44px;
+    height: 44px;
+  }
+  
+  .send-button {
+    padding: 10px;
+    font-size: 18px;
+  }
+}
+
+/* 超小屏幕设备 */
+@media (max-width: 480px) {
+  .chat-header {
+    padding: 10px 12px;
+  }
+  
+  .chat-header h2 {
+    font-size: 16px;
+  }
+  
+  .logo-container {
+    gap: 8px;
+  }
+  
+  .pantheon-logo {
+    font-size: 20px;
+  }
+  
+  .messages-container {
+    padding: 12px;
+  }
+  
+  .welcome-message {
+    padding: 20px;
+  }
+  
+  .welcome-icon {
+    font-size: 40px;
+  }
+  
+  .input-container {
+    padding: 12px;
+  }
+  
+  .input-wrapper {
+    gap: 6px;
+  }
+}
+
 /* 科幻效果增强 */
 .chat-header {
   background: rgba(15, 23, 42, 0.7);
