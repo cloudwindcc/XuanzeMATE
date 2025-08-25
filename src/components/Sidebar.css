@@ -1,8 +1,7 @@
 .sidebar {
   width: 320px;
   height: 100vh;
-  background: rgba(26, 26, 46, 0.8);
-  backdrop-filter: blur(20px);
+  background: rgba(26, 26, 46, 0.95);
   border-right: 1px solid rgba(66, 153, 225, 0.2);
   transition: transform 0.3s ease;
   flex-shrink: 0;
@@ -33,20 +32,21 @@
 .sidebar-header {
   padding: 20px;
   border-bottom: 1px solid rgba(66, 153, 225, 0.2);
-  background: rgba(15, 23, 42, 0.5);
-  backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, 0.8);
 }
 
 .sidebar-header h3 {
-  color: #e2e8f0;
+  color: #ffffff;
   margin: 0 0 8px 0;
   font-size: 18px;
+  font-weight: 600;
 }
 
 .sidebar-header p {
-  color: #a0aec0;
+  color: #e2e8f0;
   margin: 0;
   font-size: 14px;
+  font-weight: 500;
 }
 
 .categories-list {
