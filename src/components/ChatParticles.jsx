@@ -37,6 +37,7 @@ const ChatParticles = () => {
       }
     }
 
+<<<<<<< HEAD
     // 创建光子粒子 - 更多粒子，更丰富的效果
     for (let i = 0; i < 120; i++) {
       const type = Math.random() > 0.7 ? 'photon' : 'normal'
@@ -54,6 +55,19 @@ const ChatParticles = () => {
         type: type,
         pulse: Math.random() * Math.PI * 2,
         pulseSpeed: Math.random() * 0.03 + 0.02
+=======
+    // 创建粒子 - 更多粒子，更动态
+    for (let i = 0; i < 80; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2 + 1,
+        speedX: (Math.random() - 0.5) * 1.2,
+        speedY: (Math.random() - 0.5) * 1.2,
+        color: `hsl(${Math.random() * 60 + 200}, 90%, 65%)`,
+        alpha: Math.random() * 0.4 + 0.2,
+        trail: []
+>>>>>>> aef903e929363b2d7330f9eec4f56fc242dedba4
       })
     }
 
@@ -98,6 +112,7 @@ const ChatParticles = () => {
           ctx.globalAlpha = 1
         }
 
+<<<<<<< HEAD
         // 绘制粒子 - 光子效果
         if (particle.type === 'photon') {
           // 光子发光效果
@@ -121,6 +136,9 @@ const ChatParticles = () => {
         }
         
         // 绘制粒子主体
+=======
+        // 绘制粒子
+>>>>>>> aef903e929363b2d7330f9eec4f56fc242dedba4
         ctx.fillStyle = particle.color
         ctx.globalAlpha = particle.alpha
         ctx.beginPath()
@@ -180,6 +198,7 @@ const ChatParticles = () => {
         ctx.fill()
       })
 
+<<<<<<< HEAD
       // 随机生成能量光束效果
       if (Math.random() < 0.02) {
         const startX = Math.random() * canvas.width
@@ -201,6 +220,8 @@ const ChatParticles = () => {
         ctx.globalAlpha = 1
       }
 
+=======
+>>>>>>> aef903e929363b2d7330f9eec4f56fc242dedba4
       animationFrameId = requestAnimationFrame(draw)
     }
 
