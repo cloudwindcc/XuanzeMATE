@@ -20,8 +20,9 @@ const ChatParticles = () => {
     window.addEventListener('resize', resizeCanvas)
 
     const particles = []
-    const gridSize = 60 // 增加网格间距，减少密度
+    const gridSize = 120 // 增加网格间距，减少密度（稀疏一倍）
     const gridPoints = []
+    const sidebarWidth = 320 // 侧边栏宽度，用于排除特效区域
 
     // 创建网格点 - 优化为稀疏的网络节点
     for (let x = 0; x <= canvas.width; x += gridSize) {
@@ -154,7 +155,6 @@ const ChatParticles = () => {
       })
 
       // 绘制彩色连接线 - 优化为节点+边的网络效果
-      const sidebarWidth = 320 // 侧边栏宽度，用于排除特效区域
       
       for (let i = 0; i < gridPoints.length; i++) {
         for (let j = i + 1; j < gridPoints.length; j++) {
@@ -165,8 +165,8 @@ const ChatParticles = () => {
           // 排除侧边栏区域的连接线
           const isInSidebar = (p1.x < sidebarWidth && p2.x < sidebarWidth)
           
-          if (dist < 100 && !isInSidebar) {
-            const alpha = 1 - (dist / 100) // 距离越近越明显
+          if (dist < 180 && !isInSidebar) {
+            const alpha = 1 - (dist / 180) // 距离越近越明显
             const hue1 = p1.hue
             const hue2 = p2.hue
             
