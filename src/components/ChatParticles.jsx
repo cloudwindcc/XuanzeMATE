@@ -62,7 +62,7 @@ const ChatParticles = () => {
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // 绘制深色渐变背景
+      // 绘制深色渐变背景 - 排除侧边栏区域
       const gradient = ctx.createRadialGradient(
         canvas.width / 2, 
         canvas.height / 2, 
@@ -74,7 +74,9 @@ const ChatParticles = () => {
       gradient.addColorStop(0, 'rgba(15, 23, 42, 0.8)')
       gradient.addColorStop(1, 'rgba(10, 10, 20, 0.9)')
       ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      
+      // 只绘制聊天区域，排除侧边栏
+      ctx.fillRect(sidebarWidth, 0, canvas.width - sidebarWidth, canvas.height)
 
       // 更新网格点脉冲效果
       gridPoints.forEach(point => {

@@ -2,11 +2,12 @@
   width: 320px;
   height: 100vh;
   background: #1a1a2e;
-  border-right: 1px solid #2d3748;
+  border-right: 1px solid rgba(66, 153, 225, 0.3); /* 更科幻的淡蓝色边框 */
   transition: transform 0.3s ease;
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
+  z-index: 10; /* 确保侧边栏在粒子效果之上 */
 }
 
 .sidebar::before {
@@ -31,7 +32,7 @@
 
 .sidebar-header {
   padding: 20px;
-  border-bottom: 1px solid #2d3748;
+  border-bottom: 1px solid rgba(66, 153, 225, 0.2); /* 更科幻的淡蓝色边框 */
   background: #0f172a;
 }
 
@@ -60,7 +61,7 @@
   border-radius: 12px;
   background: #2d3748;
   overflow: hidden;
-  border: 1px solid #4299e1;
+  border: 1px solid rgba(66, 153, 225, 0.4); /* 更科幻的淡蓝色边框 */
   transition: all 0.3s ease;
 }
 
@@ -115,7 +116,7 @@
   line-height: 1.4;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 1px solid #4299e1;
+  border: 1px solid rgba(66, 153, 225, 0.3); /* 更科幻的淡蓝色边框 */
   position: relative;
   overflow: hidden;
 }
