@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev)",
+      "Bash(npm install)",
+      "Bash(node test-gemini.js)",
+      "Bash(taskkill:*)",
+      "Bash(node test-env.js)",
+      "Bash(pkill:*)",
+      "Bash(cmd /c:*)",
+      "Bash(curl:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

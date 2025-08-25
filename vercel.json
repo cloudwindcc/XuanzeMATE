@@ -1,0 +1,36 @@
+{
+  "version": 3,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "VITE_DEEPSEEK_API_KEY": "@vite_deepseek_api_key",
+    "VITE_GEMINI_API_KEY": "@vite_gemini_api_key",
+    "VITE_DEFAULT_AI_PROVIDER": "@vite_default_ai_provider"
+  },
+  "build": {
+    "env": {
+      "VITE_DEEPSEEK_API_KEY": "$VITE_DEEPSEEK_API_KEY",
+      "VITE_GEMINI_API_KEY": "$VITE_GEMINI_API_KEY",
+      "VITE_DEFAULT_AI_PROVIDER": "$VITE_DEFAULT_AI_PROVIDER"
+    }
+  },
+  "functions": {
+    "app/api/**": {
+      "maxDuration": 30
+    }
+  },
+  "outputDirectory": "dist"
+}
