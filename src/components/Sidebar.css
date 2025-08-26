@@ -17,7 +17,7 @@
   right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, #3b82f6, transparent);
-  animation: scanline 3s linear infinite;
+  animation: scanline 9s linear infinite;
 }
 
 .sidebar.closed {

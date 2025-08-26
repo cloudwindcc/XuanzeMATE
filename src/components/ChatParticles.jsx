@@ -42,7 +42,7 @@ const ChatParticles = () => {
     window.addEventListener('resize', resizeCanvas)
 
     const particles = []
-    const gridSize = 120 // 增加网格间距，减少密度（稀疏一倍）
+    const gridSize = 240 // 稀疏网格，密度减半
     const gridPoints = []
     const sidebarWidth = 320 // 侧边栏宽度，用于排除特效区域
 
@@ -55,7 +55,7 @@ const ChatParticles = () => {
           originX: x, 
           originY: y,
           pulse: Math.random() * Math.PI * 2,
-          pulseSpeed: Math.random() * 0.02 + 0.01,
+          pulseSpeed: Math.random() * 0.01 + 0.005,
           hue: Math.random() * 60 + 200 // 蓝色主题：200-260度
         })
       }
@@ -70,14 +70,14 @@ const ChatParticles = () => {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         size: type === 'photon' ? Math.random() * 3 + 2 : Math.random() * 2 + 1,
-        speedX: (Math.random() - 0.5) * (type === 'photon' ? 2.5 : 1.2),
-        speedY: (Math.random() - 0.5) * (type === 'photon' ? 2.5 : 1.2),
+        speedX: (Math.random() - 0.5) * (type === 'photon' ? 1.25 : 0.6),
+        speedY: (Math.random() - 0.5) * (type === 'photon' ? 1.25 : 0.6),
         color: `hsl(${baseHue}, 90%, 70%)`,
         alpha: type === 'photon' ? Math.random() * 0.6 + 0.4 : Math.random() * 0.4 + 0.2,
         trail: [],
         type: type,
         pulse: Math.random() * Math.PI * 2,
-        pulseSpeed: Math.random() * 0.03 + 0.02
+        pulseSpeed: Math.random() * 0.015 + 0.01
       })
     }
 
@@ -279,24 +279,6 @@ const ChatParticles = () => {
         ctx.moveTo(startX, startY)
         ctx.lineTo(endX, endY)
         ctx.stroke()
-        ctx.globalAlpha = 1
-      }
-      // 绘制鼠标光标效果
-      if (mouse.isActive) {
-        // 光标外圈
-        ctx.strokeStyle = 'rgba(59, 130, 246, 0.6)'
-        ctx.lineWidth = 1
-        ctx.globalAlpha = 0.8
-        ctx.beginPath()
-        ctx.arc(mouse.x, mouse.y, 15, 0, Math.PI * 2)
-        ctx.stroke()
-        
-        // 光标内点
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'
-        ctx.beginPath()
-        ctx.arc(mouse.x, mouse.y, 2, 0, Math.PI * 2)
-        ctx.fill()
-        
         ctx.globalAlpha = 1
       }
       
