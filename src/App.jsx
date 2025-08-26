@@ -126,6 +126,12 @@ function App() {
         onPromptSelect={handlePromptSelect}
       />
       
+      {/* 移动端遮罩层 */}
+      <div 
+        className={`sidebar-overlay ${sidebarOpen ? 'active' : ''}`}
+        onClick={() => setSidebarOpen(false)}
+      />
+      
       <ChatInterface 
         messages={messages}
         onSendMessage={handleSendMessage}
