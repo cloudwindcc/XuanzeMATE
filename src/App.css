@@ -5,20 +5,22 @@
   background: #0f172a;
 }
 
-/* 移动端遮罩层 */
-.sidebar-overlay {
-  display: none;
-}
-
+/* 移动端布局 - 聊天界面优先 */
 @media (max-width: 768px) {
+  .app {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* 移动端遮罩层 */
   .sidebar-overlay {
-    display: block;
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 999;
     opacity: 0;
     pointer-events: none;
@@ -26,7 +28,36 @@
   }
   
   .sidebar-overlay.active {
+    display: block;
     opacity: 1;
     pointer-events: auto;
+  }
+  
+  /* 移动端聊天界面始终全屏显示 */
+  .chat-interface {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* 移动端侧边栏默认隐藏，从左侧滑入 */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 320px;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar.closed {
+    transform: translateX(-100%);
   }
 }

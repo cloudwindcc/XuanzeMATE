@@ -32,7 +32,7 @@ const ChatInterface = ({ messages, onSendMessage, onToggleSidebar, isLoading, cu
             ☰
           </button>
           <div className="logo-container">
-            <img src="/assets/daxuanze-main.png" alt="XuanzeMATE Logo" className="header-logo" />
+            <div className="pantheon-logo">⚡</div>
             <h2>XuanzeMATE</h2>
           </div>
           <span className="subtitle">您的人生决策伙伴</span>

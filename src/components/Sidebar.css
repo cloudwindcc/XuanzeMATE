@@ -166,7 +166,7 @@
 /* 移动端响应式设计 */
 @media (max-width: 768px) {
   .sidebar {
-    width: 300px;
+    width: 320px;
     position: fixed;
     z-index: 1000;
     box-shadow: 
@@ -174,18 +174,16 @@
     backdrop-filter: blur(20px);
     background: rgba(26, 26, 46, 0.95);
     -webkit-overflow-scrolling: touch;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.3s ease;
+    transform: translateX(-100%);
   }
   
   .sidebar.open {
     transform: translateX(0);
-    opacity: 1;
   }
   
   .sidebar.closed {
     transform: translateX(-100%);
-    opacity: 0;
-    pointer-events: none;
   }
   
   

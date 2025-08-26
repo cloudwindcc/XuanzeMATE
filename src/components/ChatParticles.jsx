@@ -10,6 +10,28 @@ const ChatParticles = () => {
 
     const ctx = canvas.getContext('2d')
     let animationFrameId
+    
+    // 交互状态
+    const mouse = {
+      x: 0,
+      y: 0,
+      isActive: false
+    }
+    
+    // 鼠标事件监听
+    const handleMouseMove = (e) => {
+      const rect = canvas.getBoundingClientRect()
+      mouse.x = e.clientX - rect.left
+      mouse.y = e.clientY - rect.top
+      mouse.isActive = true
+    }
+    
+    const handleMouseLeave = () => {
+      mouse.isActive = false
+    }
+    
+    canvas.addEventListener('mousemove', handleMouseMove)
+    canvas.addEventListener('mouseleave', handleMouseLeave)
 
     const resizeCanvas = () => {
       canvas.width = canvas.offsetWidth
@@ -34,7 +56,7 @@ const ChatParticles = () => {
           originY: y,
           pulse: Math.random() * Math.PI * 2,
           pulseSpeed: Math.random() * 0.02 + 0.01,
-          hue: Math.random() * 360 // 为每个节点添加颜色
+          hue: Math.random() * 60 + 200 // 蓝色主题：200-260度
         })
       }
     }
@@ -42,7 +64,7 @@ const ChatParticles = () => {
     // 创建光子粒子 - 优化性能，减少到40个粒子
     for (let i = 0; i < 40; i++) {
       const type = Math.random() > 0.7 ? 'photon' : 'normal'
-      const baseHue = type === 'photon' ? Math.random() * 60 + 180 : Math.random() * 60 + 200
+      const baseHue = Math.random() * 60 + 200 // 蓝色主题：200-260度
       
       particles.push({
         x: Math.random() * canvas.width,
@@ -156,38 +178,76 @@ const ChatParticles = () => {
         }
       })
 
-      // 绘制彩色连接线 - 优化为节点+边的网络效果
-      
-      for (let i = 0; i < gridPoints.length; i++) {
-        for (let j = i + 1; j < gridPoints.length; j++) {
-          const p1 = gridPoints[i]
-          const p2 = gridPoints[j]
-          const dist = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2)
+      // 绘制交互式粒子连接线
+      particles.forEach((particle, index) => {
+        // 排除侧边栏区域的粒子
+        if (particle.x >= sidebarWidth) {
+          // 绘制与其他粒子的连接线
+          for (let j = index + 1; j < particles.length; j++) {
+            const otherParticle = particles[j]
+            if (otherParticle.x >= sidebarWidth) {
+              const dist = Math.sqrt(
+                Math.pow(particle.x - otherParticle.x, 2) + 
+                Math.pow(particle.y - otherParticle.y, 2)
+              )
+              
+              // 近距离粒子之间绘制连接线
+              if (dist < 100) {
+                const alpha = 1 - (dist / 100) * 0.8
+                const gradient = ctx.createLinearGradient(
+                  particle.x, particle.y, 
+                  otherParticle.x, otherParticle.y
+                )
+                gradient.addColorStop(0, `hsla(${particle.color.match(/hsl\((\d+)/)[1]}, 80%, 60%, ${alpha * 0.4})`)
+                gradient.addColorStop(1, `hsla(${otherParticle.color.match(/hsl\((\d+)/)[1]}, 80%, 60%, ${alpha * 0.4})`)
+                
+                ctx.strokeStyle = gradient
+                ctx.lineWidth = 1 * alpha
+                ctx.globalAlpha = alpha * 0.3
+                ctx.beginPath()
+                ctx.moveTo(particle.x, particle.y)
+                ctx.lineTo(otherParticle.x, otherParticle.y)
+                ctx.stroke()
+                ctx.globalAlpha = 1
+              }
+            }
+          }
           
-          // 排除侧边栏区域的连接线
-          const isInSidebar = (p1.x < sidebarWidth && p2.x < sidebarWidth)
-          
-          if (dist < 180 && !isInSidebar) {
-            const alpha = 1 - (dist / 180) // 距离越近越明显
-            const hue1 = p1.hue
-            const hue2 = p2.hue
+          // 鼠标交互效果
+          if (mouse.isActive) {
+            const mouseDist = Math.sqrt(
+              Math.pow(particle.x - mouse.x, 2) + 
+              Math.pow(particle.y - mouse.y, 2)
+            )
             
-            // 创建彩色渐变连接线
-            const gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y)
-            gradient.addColorStop(0, `hsla(${hue1}, 80%, 60%, ${alpha * 0.3})`)
-            gradient.addColorStop(1, `hsla(${hue2}, 80%, 60%, ${alpha * 0.3})`)
-            
-            ctx.strokeStyle = gradient
-            ctx.lineWidth = 0.8 * alpha
-            ctx.globalAlpha = alpha * 0.4
-            ctx.beginPath()
-            ctx.moveTo(p1.x, p1.y)
-            ctx.lineTo(p2.x, p2.y)
-            ctx.stroke()
-            ctx.globalAlpha = 1
+            // 鼠标靠近时绘制连接线
+            if (mouseDist < 120) {
+              const alpha = 1 - (mouseDist / 120)
+              const gradient = ctx.createLinearGradient(particle.x, particle.y, mouse.x, mouse.y)
+              gradient.addColorStop(0, `hsla(${particle.color.match(/hsl\((\d+)/)[1]}, 90%, 70%, ${alpha * 0.6})`)
+              gradient.addColorStop(1, 'rgba(255, 255, 255, 0.3)')
+              
+              ctx.strokeStyle = gradient
+              ctx.lineWidth = 1.5 * alpha
+              ctx.globalAlpha = alpha * 0.5
+              ctx.beginPath()
+              ctx.moveTo(particle.x, particle.y)
+              ctx.lineTo(mouse.x, mouse.y)
+              ctx.stroke()
+              ctx.globalAlpha = 1
+              
+              // 鼠标靠近时粒子变大并加速
+              if (mouseDist < 80) {
+                particle.size = Math.min(particle.size + 0.2, 6)
+                const repelForce = 0.5 * (1 - mouseDist / 80)
+                const angle = Math.atan2(particle.y - mouse.y, particle.x - mouse.x)
+                particle.speedX += Math.cos(angle) * repelForce
+                particle.speedY += Math.sin(angle) * repelForce
+              }
+            }
           }
         }
-      }
+      })
 
       // 绘制彩色网络节点 - 排除侧边栏区域
       gridPoints.forEach(point => {
@@ -209,8 +269,8 @@ const ChatParticles = () => {
         const endY = Math.random() * canvas.height
         
         const gradient = ctx.createLinearGradient(startX, startY, endX, endY)
-        gradient.addColorStop(0, 'rgba(66, 153, 225, 0.3)')
-        gradient.addColorStop(1, 'rgba(139, 92, 246, 0.3)')
+        gradient.addColorStop(0, 'rgba(59, 130, 246, 0.4)')
+        gradient.addColorStop(1, 'rgba(37, 99, 235, 0.4)')
         
         ctx.strokeStyle = gradient
         ctx.lineWidth = 1
@@ -221,6 +281,25 @@ const ChatParticles = () => {
         ctx.stroke()
         ctx.globalAlpha = 1
       }
+      // 绘制鼠标光标效果
+      if (mouse.isActive) {
+        // 光标外圈
+        ctx.strokeStyle = 'rgba(59, 130, 246, 0.6)'
+        ctx.lineWidth = 1
+        ctx.globalAlpha = 0.8
+        ctx.beginPath()
+        ctx.arc(mouse.x, mouse.y, 15, 0, Math.PI * 2)
+        ctx.stroke()
+        
+        // 光标内点
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'
+        ctx.beginPath()
+        ctx.arc(mouse.x, mouse.y, 2, 0, Math.PI * 2)
+        ctx.fill()
+        
+        ctx.globalAlpha = 1
+      }
+      
       animationFrameId = requestAnimationFrame(draw)
     }
 
@@ -229,6 +308,8 @@ const ChatParticles = () => {
     return () => {
       cancelAnimationFrame(animationFrameId)
       window.removeEventListener('resize', resizeCanvas)
+      canvas.removeEventListener('mousemove', handleMouseMove)
+      canvas.removeEventListener('mouseleave', handleMouseLeave)
     }
   }, [])
 
