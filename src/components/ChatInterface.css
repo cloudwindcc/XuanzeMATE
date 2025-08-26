@@ -441,6 +441,26 @@
   }
 }
 
+/* 语言切换按钮 */
+.language-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(66, 153, 225, 0.3);
+  color: #e2e8f0;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  margin-left: 8px;
+}
+
+.language-toggle:hover {
+  background: rgba(59, 130, 246, 0.3);
+  border-color: #3b82f6;
+  transform: scale(1.05);
+}
+
 /* 科幻效果增强 */
 .chat-header {
   background: rgba(15, 23, 42, 0.7);

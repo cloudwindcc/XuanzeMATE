@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import { LIFE_CHOICE_TEMPLATES } from '../data/prompt-templates'
+import { useLanguage } from '../contexts/LanguageContext'
+import { translations } from '../data/translations'
 import './Sidebar.css'
 
 const Sidebar = ({ isOpen, onPromptSelect }) => {
   const categories = Object.values(LIFE_CHOICE_TEMPLATES)
+  const { language } = useLanguage()
+  const t = translations[language]
 
   return (
     <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
       <div className="sidebar-header">
-        <h3>人生决策指南</h3>
-        <p>选择主题开始对话</p>
+        <h3>{t.sidebarTitle}</h3>
+        <p>{t.sidebarSubtitle}</p>
       </div>
       
       <div className="categories-list">

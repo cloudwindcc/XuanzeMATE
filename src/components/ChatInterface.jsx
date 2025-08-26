@@ -1,11 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react'
 import FormattedMessage from './FormattedMessage'
 import ChatParticles from './ChatParticles'
+import LanguageToggle from './LanguageToggle'
+import { useLanguage } from '../contexts/LanguageContext'
+import { translations } from '../data/translations'
 import './ChatInterface.css'
 
 const ChatInterface = ({ messages, onSendMessage, onToggleSidebar, isLoading, currentModel, onModelChange }) => {
   const [inputMessage, setInputMessage] = useState('')
   const messagesEndRef = useRef(null)
+  const { language } = useLanguage()
+  const t = translations[language]
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -35,7 +40,7 @@ const ChatInterface = ({ messages, onSendMessage, onToggleSidebar, isLoading, cu
             <div className="pantheon-logo">⚡</div>
             <h2>XuanzeMATE</h2>
           </div>
-          <span className="subtitle">您的人生决策伙伴</span>
+          <span className="subtitle">{language === 'zh' ? '您的人生决策伙伴' : 'Your Life Decision Partner'}</span>
         </div>
         
         <div className="chat-header-right">
@@ -45,10 +50,11 @@ const ChatInterface = ({ messages, onSendMessage, onToggleSidebar, isLoading, cu
               onChange={(e) => onModelChange(e.target.value)}
               disabled={isLoading}
             >
-              <option value="DEEPSEEK">Deepseek</option>
-              <option value="GEMINI">Gemini</option>
+              <option value="DEEPSEEK">{t.deepseek}</option>
+              <option value="GEMINI">{t.gemini}</option>
             </select>
           </div>
+          <LanguageToggle />
         </div>
       </div>
 
@@ -56,9 +62,9 @@ const ChatInterface = ({ messages, onSendMessage, onToggleSidebar, isLoading, cu
         {messages.length === 0 ? (
           <div className="welcome-message">
             <div className="welcome-icon">🤖</div>
-            <h3>欢迎使用 XuanzeMATE</h3>
-            <p>我是您的人生决策AI伙伴，可以帮助您分析各种人生选择</p>
-            <p>请从左侧选择主题开始对话，或直接输入您的问题</p>
+            <h3>{t.welcomeTitle}</h3>
+            <p>{t.welcomeDescription1}</p>
+            <p>{t.welcomeDescription2}</p>
           </div>
         ) : (
           messages.map((message, index) => (
@@ -95,7 +101,7 @@ const ChatInterface = ({ messages, onSendMessage, onToggleSidebar, isLoading, cu
             type="text"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder={isLoading ? "AI正在思考中..." : "输入您的问题..."}
+            placeholder={isLoading ? t.inputPlaceholderLoading : t.inputPlaceholder}
             className="message-input"
             disabled={isLoading}
           />

@@ -3,6 +3,8 @@ import Sidebar from './components/Sidebar'
 import ChatInterface from './components/ChatInterface'
 import CyberBackground from './components/CyberBackground'
 import { AIService } from './services/ai-service'
+import { useLanguage } from './contexts/LanguageContext'
+import { translations } from './data/translations'
 import './App.css'
 
 function App() {
@@ -11,6 +13,8 @@ function App() {
   const [aiService] = useState(new AIService())
   const [isLoading, setIsLoading] = useState(false)
   const [currentModel, setCurrentModel] = useState('GEMINI')
+  const { language } = useLanguage()
+  const t = translations[language]
 
   // 初始化AI服务
   useEffect(() => {
@@ -81,14 +85,14 @@ function App() {
     } catch (error) {
       console.error('AI请求失败:', error)
       
-      let errorContent = '抱歉，AI服务暂时不可用。请检查API密钥配置或网络连接。'
+      let errorContent = t.errorGeneric
       
-      if (error.message.includes('超时')) {
-        errorContent = '请求超时，Deepseek API响应较慢。请稍后重试或切换到Gemini模型。'
+      if (error.message.includes('超时') || error.name === 'AbortError') {
+        errorContent = t.errorTimeout
       } else if (error.message.includes('API密钥') || error.message.includes('401') || error.message.includes('403')) {
-        errorContent = 'API密钥配置错误，请检查.env文件中的密钥设置。'
+        errorContent = t.errorApiKey
       } else if (error.message.includes('网络')) {
-        errorContent = '网络连接问题，请检查您的网络连接后重试。'
+        errorContent = t.errorNetwork
       }
       
       const errorMessage = {
