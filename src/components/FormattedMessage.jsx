@@ -23,12 +23,7 @@ const FormattedMessage = ({ content, role }) => {
             inline 
               ? <code className="markdown-code-inline" {...props} />
               : <pre className="markdown-code-block"><code {...props} /></pre>,
-          table: ({node, ...props}) => <table className="markdown-table" {...props} />,
-          thead: ({node, ...props}) => <thead className="markdown-table-header" {...props} />,
-          tbody: ({node, ...props}) => <tbody className="markdown-table-body" {...props} />,
-          tr: ({node, ...props}) => <tr className="markdown-table-row" {...props} />,
-          th: ({node, ...props}) => <th className="markdown-table-header-cell" {...props} />,
-          td: ({node, ...props}) => <td className="markdown-table-cell" {...props} />,
+          // 移除表格组件以提升性能
         }}
       >
         {content}

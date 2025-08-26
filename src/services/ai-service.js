@@ -123,7 +123,7 @@ export class AIService {
     const model = options.model || AI_PROVIDERS.DEEPSEEK.models.CHAT
     const url = `${AI_PROVIDERS.DEEPSEEK.baseURL}/chat/completions`
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 15000) // 15秒超时
+    const timeoutId = setTimeout(() => controller.abort(), 45000) // 45秒超时，Deepseek响应较慢
 
     try {
       // 转换消息格式为Deepseek要求的格式
