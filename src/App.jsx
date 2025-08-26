@@ -12,7 +12,7 @@ function App() {
   const [messages, setMessages] = useState([])
   const [aiService] = useState(new AIService())
   const [isLoading, setIsLoading] = useState(false)
-  const [currentModel, setCurrentModel] = useState('GEMINI')
+  const [currentModel, setCurrentModel] = useState(import.meta.env.VITE_DEFAULT_AI_PROVIDER || 'GEMINI')
   const { language } = useLanguage()
   const t = translations[language]
 

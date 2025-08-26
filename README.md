@@ -93,7 +93,7 @@ npm run dev
 5. 环境变量：
    - `VITE_DEEPSEEK_API_KEY`: 您的API密钥
    - `VITE_GEMINI_API_KEY`: 您的API密钥
-   - `VITE_DEFAULT_AI_PROVIDER`: DEEPSEEK
+   - `VITE_DEFAULT_AI_PROVIDER`: GEMINI
 
 ### Netlify 部署
 
@@ -117,7 +117,7 @@ npm run deploy:cloudflare
 |--------|------|------|--------|
 | `VITE_DEEPSEEK_API_KEY` | Deepseek API密钥 | 是 | - |
 | `VITE_GEMINI_API_KEY` | Google Gemini API密钥 | 否 | - |
-| `VITE_DEFAULT_AI_PROVIDER` | 默认AI提供商 | 否 | DEEPSEEK |
+| `VITE_DEFAULT_AI_PROVIDER` | 默认AI提供商 | 否 | GEMINI |
 
 ## 项目结构
 
