@@ -31,6 +31,7 @@ const Sidebar = ({ isOpen, onPromptSelect }) => {
 
 const CategoryItem = ({ category, onPromptSelect }) => {
   const [expanded, setExpanded] = useState(false)
+  const { language } = useLanguage()
 
   return (
     <div className="category-item">
@@ -39,13 +40,13 @@ const CategoryItem = ({ category, onPromptSelect }) => {
         onClick={() => setExpanded(!expanded)}
       >
         <span className="category-icon">{category.icon}</span>
-        <span className="category-title">{category.title}</span>
+        <span className="category-title">{language === 'en' ? category.title_en : category.title}</span>
         <span className="expand-icon">{expanded ? '▼' : '►'}</span>
       </div>
       
       {expanded && (
         <div className="prompts-list">
-          {category.prompts.map((prompt, index) => (
+          {(language === 'en' ? category.prompts_en : category.prompts).map((prompt, index) => (
             <div
               key={index}
               className="prompt-item"
