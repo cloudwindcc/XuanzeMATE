@@ -52,6 +52,26 @@
   padding: 16px;
   overflow-y: auto;
   height: calc(100vh - 80px);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(59, 130, 246, 0.2) transparent;
+}
+
+.categories-list::-webkit-scrollbar {
+  width: 3px;
+}
+
+.categories-list::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.4);
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.categories-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.6);
+}
+
+.categories-list::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .category-item {
@@ -176,16 +196,25 @@
     height: calc(100vh - 76px);
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: rgba(66, 153, 225, 0.3) transparent;
+    scrollbar-color: rgba(59, 130, 246, 0.2) transparent;
   }
   
   .categories-list::-webkit-scrollbar {
-    width: 4px;
+    width: 3px;
   }
   
   .categories-list::-webkit-scrollbar-thumb {
-    background: rgba(66, 153, 225, 0.3);
-    border-radius: 2px;
+    background: rgba(59, 130, 246, 0.4);
+    border-radius: 3px;
+    transition: background 0.3s ease;
+  }
+  
+  .categories-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(59, 130, 246, 0.6);
+  }
+  
+  .categories-list::-webkit-scrollbar-track {
+    background: transparent;
   }
   
   .category-header {
@@ -256,6 +285,26 @@
   .categories-list {
     padding: 12px 10px;
     height: calc(100vh - 68px);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(59, 130, 246, 0.2) transparent;
+  }
+  
+  .categories-list::-webkit-scrollbar {
+    width: 2px;
+  }
+  
+  .categories-list::-webkit-scrollbar-thumb {
+    background: rgba(59, 130, 246, 0.4);
+    border-radius: 2px;
+    transition: background 0.3s ease;
+  }
+  
+  .categories-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(59, 130, 246, 0.6);
+  }
+  
+  .categories-list::-webkit-scrollbar-track {
+    background: transparent;
   }
   
   .category-header {
