@@ -8,10 +8,7 @@ const Sidebar = ({ isOpen, onPromptSelect }) => {
   return (
     <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
       <div className="sidebar-header">
-        <div className="sidebar-title-container">
-          <img src="/assets/daxuanze-main.png" alt="XuanzeMATE Logo" className="sidebar-logo" />
-          <h3>人生决策指南</h3>
-        </div>
+        <h3>人生决策指南</h3>
         <p>选择主题开始对话</p>
       </div>
       
