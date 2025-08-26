@@ -8,7 +8,7 @@
 
 .chat-header {
   padding: 16px 20px;
-  border-bottom: 1px solid #2d3748;
+  border-bottom: 1px solid rgba(45, 55, 72, 0.3);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -206,7 +206,7 @@
 
 .input-container {
   padding: 20px;
-  border-top: 1px solid #2d3748;
+  border-top: 1px solid rgba(45, 55, 72, 0.3);
 }
 
 .input-wrapper {
@@ -218,7 +218,7 @@
 .message-input {
   flex: 1;
   padding: 24px 16px;
-  border: 1px solid #374151;
+  border: 1px solid rgba(55, 65, 81, 0.4);
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.05);
   color: #e2e8f0;

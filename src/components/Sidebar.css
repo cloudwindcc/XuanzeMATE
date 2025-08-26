@@ -2,7 +2,7 @@
   width: 320px;
   height: 100vh;
   background: #1a1a2e;
-  border-right: 1px solid rgba(66, 153, 225, 0.3); /* 更科幻的淡蓝色边框 */
+  border-right: 1px solid rgba(66, 153, 225, 0.15); /* 更淡的边框 */
   transition: transform 0.3s ease;
   flex-shrink: 0;
   position: relative;
@@ -32,7 +32,7 @@
 
 .sidebar-header {
   padding: 20px;
-  border-bottom: 1px solid rgba(66, 153, 225, 0.2); /* 更科幻的淡蓝色边框 */
+  border-bottom: 1px solid rgba(66, 153, 225, 0.1); /* 更淡的边框 */
   background: #0f172a;
 }
 
@@ -74,7 +74,7 @@
   border-radius: 12px;
   background: #2d3748;
   overflow: hidden;
-  border: 1px solid rgba(66, 153, 225, 0.4); /* 更科幻的淡蓝色边框 */
+  border: 1px solid rgba(66, 153, 225, 0.2); /* 更淡的边框 */
   transition: all 0.3s ease;
 }
 
@@ -132,7 +132,7 @@
   line-height: 1.4;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 1px solid rgba(66, 153, 225, 0.3); /* 更科幻的淡蓝色边框 */
+  border: 1px solid rgba(66, 153, 225, 0.15); /* 更淡的边框 */
   position: relative;
   overflow: hidden;
 }
@@ -169,8 +169,7 @@
     position: fixed;
     z-index: 1000;
     box-shadow: 
-      0 0 60px rgba(0, 0, 0, 0.6),
-      inset -1px 0 0 rgba(255, 255, 255, 0.1);
+      0 0 60px rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(20px);
     background: rgba(26, 26, 46, 0.95);
     -webkit-overflow-scrolling: touch;
@@ -178,7 +177,7 @@
   
   .sidebar-header {
     padding: 20px 16px 16px;
-    border-bottom: 1px solid rgba(66, 153, 225, 0.3);
+    border-bottom: 1px solid rgba(66, 153, 225, 0.15);
     background: rgba(15, 23, 42, 0.8);
   }
   
