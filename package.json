@@ -1,19 +1,22 @@
 {
   "name": "xuanzemate",
-  "version": "1.1.0",
+  "version": "3.0.1",
   "description": "AI人生决策伙伴 - 简洁科技感的对话界面，支持14个关键人生选择主题",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
+    "test": "node --test tests/*.test.js",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy:vercel": "npm run build && npx vercel --prod",
-    "deploy:cloudflare": "npm run build && npx wrangler pages publish dist"
+    "deploy:cloudflare": "npm run build && npx wrangler pages deploy dist --project-name xuanzemate"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "dependencies": {
     "@vitejs/plugin-react": "^5.0.1",
     "react": "^19.1.1",
@@ -25,7 +28,6 @@
   "devDependencies": {
     "@types/react": "^19.1.11",
     "@types/react-dom": "^19.1.7",
-    "@vercel/static-build": "^2.7.18",
     "wrangler": "^4.32.0"
   }
 }

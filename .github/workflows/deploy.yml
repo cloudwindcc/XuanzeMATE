@@ -26,9 +26,7 @@ jobs:
     - name: Build project
       run: npm run build
       env:
-        VITE_DEEPSEEK_API_KEY: ${{ secrets.VITE_DEEPSEEK_API_KEY }}
-        VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
-        VITE_DEFAULT_AI_PROVIDER: ${{ secrets.VITE_DEFAULT_AI_PROVIDER || 'DEEPSEEK' }}
+        DEFAULT_AI_PROVIDER: ${{ secrets.DEFAULT_AI_PROVIDER || 'GEMINI' }}
     
     - name: Deploy to Vercel
       uses: amondnet/vercel-action@v25

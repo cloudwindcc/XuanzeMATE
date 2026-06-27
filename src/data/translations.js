@@ -17,9 +17,9 @@ export const translations = {
     gemini: 'Gemini',
     
     // 错误消息
-    errorGeneric: '抱歉，AI服务暂时不可用。请检查API密钥配置或网络连接。',
+    errorGeneric: '抱歉，AI服务暂时不可用。请检查服务端API密钥配置或网络连接。',
     errorTimeout: '请求超时，Deepseek API响应较慢。请稍后重试或切换到Gemini模型。',
-    errorApiKey: 'API密钥配置错误，请检查.env文件中的密钥设置。',
+    errorApiKey: '服务端API密钥配置错误，请检查Cloudflare Pages环境变量设置。',
     errorNetwork: '网络连接问题，请检查您的网络连接后重试。',
     
     // 语言切换
@@ -45,9 +45,9 @@ export const translations = {
     gemini: 'Gemini',
     
     // Error messages
-    errorGeneric: 'Sorry, AI service is temporarily unavailable. Please check API key configuration or network connection.',
+    errorGeneric: 'Sorry, AI service is temporarily unavailable. Please check server-side API key configuration or network connection.',
     errorTimeout: 'Request timeout, Deepseek API response is slow. Please try again later or switch to Gemini model.',
-    errorApiKey: 'API key configuration error, please check key settings in .env file.',
+    errorApiKey: 'Server-side API key configuration error, please check Cloudflare Pages environment variables.',
     errorNetwork: 'Network connection issue, please check your network connection and try again.',
     
     // Language switching

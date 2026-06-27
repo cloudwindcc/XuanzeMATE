@@ -12,30 +12,13 @@ function App() {
   const [messages, setMessages] = useState([])
   const [aiService] = useState(new AIService())
   const [isLoading, setIsLoading] = useState(false)
-  const [currentModel, setCurrentModel] = useState(import.meta.env.VITE_DEFAULT_AI_PROVIDER || 'GEMINI')
+  const [currentModel, setCurrentModel] = useState('GEMINI')
   const { language } = useLanguage()
   const t = translations[language]
 
-  // 初始化AI服务
+  // 初始化AI服务提供商。API密钥只在Cloudflare Pages Function中读取。
   useEffect(() => {
-    const initAIService = async () => {
-      try {
-        const apiKey = import.meta.env[currentModel === 'DEEPSEEK' ? 'VITE_DEEPSEEK_API_KEY' : 'VITE_GEMINI_API_KEY']
-        console.log('检测到的API密钥:', apiKey ? '已配置' : '未配置')
-        console.log(`${currentModel} API密钥值:`, apiKey)
-        if (apiKey && apiKey !== 'your_deepseek_api_key_here' && apiKey !== 'your_actual_deepseek_api_key_here' && apiKey !== 'your_gemini_api_key_here') {
-          await aiService.initialize(currentModel, apiKey)
-          console.log('AI服务初始化成功')
-        } else {
-          console.warn(`未找到有效的${currentModel} API密钥，请检查.env文件配置`)
-          console.warn(`当前${currentModel} API密钥:`, apiKey)
-        }
-      } catch (error) {
-        console.error('AI服务初始化失败:', error)
-      }
-    }
-
-    initAIService()
+    aiService.initialize(currentModel)
   }, [aiService, currentModel])
 
   const handlePromptSelect = async (prompt) => {
@@ -61,12 +44,6 @@ function App() {
   }
 
   const sendToAI = async (messageHistory) => {
-    if (!aiService.apiKey) {
-      console.error('AI服务未正确配置')
-      return
-    }
-
-    // console.log('发送到AI的消息历史:', messageHistory)
     setIsLoading(true)
     
     try {
@@ -83,13 +60,13 @@ function App() {
       
       setMessages(prev => [...prev, aiMessage])
     } catch (error) {
-      console.error('AI请求失败:', error)
+      console.error('AI请求失败:', error.message)
       
       let errorContent = t.errorGeneric
       
       if (error.message.includes('超时') || error.name === 'AbortError') {
         errorContent = t.errorTimeout
-      } else if (error.message.includes('API密钥') || error.message.includes('401') || error.message.includes('403')) {
+      } else if (error.message.includes('API key') || error.message.includes('API密钥') || error.message.includes('401') || error.message.includes('403')) {
         errorContent = t.errorApiKey
       } else if (error.message.includes('网络')) {
         errorContent = t.errorNetwork
@@ -111,15 +88,7 @@ function App() {
     // 清除之前的对话历史，避免模型混淆
     setMessages([])
     setCurrentModel(model)
-    const apiKey = import.meta.env[model === 'DEEPSEEK' ? 'VITE_DEEPSEEK_API_KEY' : 'VITE_GEMINI_API_KEY']
-    console.log(`${model} API密钥:`, apiKey)
-    if (apiKey && apiKey !== 'your_deepseek_api_key_here' && apiKey !== 'your_actual_deepseek_api_key_here' && apiKey !== 'your_gemini_api_key_here') {
-      await aiService.switchProvider(model, apiKey)
-      console.log(`已切换到 ${model} 模型`)
-    } else {
-      console.warn(`未找到有效的${model} API密钥，请检查.env文件配置`)
-      console.warn(`当前${model} API密钥:`, apiKey)
-    }
+    aiService.switchProvider(model)
   }
 
   return (
