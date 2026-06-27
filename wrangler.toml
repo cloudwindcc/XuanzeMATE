@@ -4,4 +4,4 @@ compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "dist"
 
 [vars]
-DEFAULT_AI_PROVIDER = "GEMINI"
+DEFAULT_AI_PROVIDER = "KIMI"

@@ -6,7 +6,7 @@ import { useLanguage } from '../contexts/LanguageContext'
 import { translations } from '../data/translations'
 import './ChatInterface.css'
 
-const ChatInterface = ({ messages, onSendMessage, onToggleSidebar, isLoading, currentModel, onModelChange }) => {
+const ChatInterface = ({ messages, onSendMessage, onToggleSidebar, isLoading }) => {
   const [inputMessage, setInputMessage] = useState('')
   const messagesEndRef = useRef(null)
   const { language } = useLanguage()
@@ -44,16 +44,6 @@ const ChatInterface = ({ messages, onSendMessage, onToggleSidebar, isLoading, cu
         </div>
         
         <div className="chat-header-right">
-          <div className="model-selector">
-            <select 
-              value={currentModel} 
-              onChange={(e) => onModelChange(e.target.value)}
-              disabled={isLoading}
-            >
-              <option value="DEEPSEEK">{t.deepseek}</option>
-              <option value="GEMINI">{t.gemini}</option>
-            </select>
-          </div>
           <LanguageToggle />
         </div>
       </div>

@@ -9,6 +9,61 @@ afterEach(() => {
   global.fetch = originalFetch
 })
 
+test('Kimi is the default provider and uses the server Moonshot key', async () => {
+  let captured
+
+  global.fetch = async (url, init) => {
+    captured = {
+      url: String(url),
+      headers: init.headers,
+      body: JSON.parse(init.body)
+    }
+
+    return new Response(JSON.stringify({
+      choices: [
+        {
+          message: {
+            content: 'Kimi answer'
+          }
+        }
+      ]
+    }))
+  }
+
+  const response = await onRequestPost({
+    request: new Request('https://xuanzemate.pages.dev/api/chat', {
+      method: 'POST',
+      body: JSON.stringify({
+        apiKey: 'client-key-must-not-be-used',
+        messages: [
+          { role: 'user', content: 'Need a decision framework' }
+        ],
+        options: {
+          maxTokens: 256,
+          temperature: 0.1
+        }
+      })
+    }),
+    env: {
+      DEFAULT_AI_PROVIDER: 'KIMI',
+      MOONSHOT_API_KEY: 'server-moonshot-key'
+    }
+  })
+
+  assert.equal(response.status, 200)
+  assert.equal(captured.url, 'https://api.moonshot.ai/v1/chat/completions')
+  assert.equal(captured.headers.Authorization, 'Bearer server-moonshot-key')
+  assert.equal(captured.body.model, 'kimi-k2.7-code')
+  assert.deepEqual(captured.body.messages.map(message => message.role), ['system', 'user'])
+  assert.equal(captured.body.max_completion_tokens, 256)
+  assert.equal(captured.body.max_tokens, undefined)
+  assert.doesNotMatch(JSON.stringify(captured.body), /client-key-must-not-be-used/)
+
+  const json = await response.json()
+  assert.equal(json.provider, 'KIMI')
+  assert.equal(json.content, 'Kimi answer')
+})
+
 test('Gemini requests use the server key and preserve conversation history', async () => {
   let captured
 

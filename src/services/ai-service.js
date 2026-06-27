@@ -1,11 +1,11 @@
-const AI_PROVIDERS = ['GEMINI', 'DEEPSEEK']
+const AI_PROVIDERS = ['KIMI', 'GEMINI', 'DEEPSEEK']
 
 export class AIService {
   constructor() {
-    this.currentProvider = 'GEMINI'
+    this.currentProvider = 'KIMI'
   }
 
-  initialize(providerType = 'GEMINI') {
+  initialize(providerType = 'KIMI') {
     this.currentProvider = this.normalizeProvider(providerType)
   }
 
@@ -36,7 +36,7 @@ export class AIService {
 
   normalizeProvider(providerType) {
     const provider = String(providerType || '').toUpperCase()
-    return AI_PROVIDERS.includes(provider) ? provider : 'GEMINI'
+    return AI_PROVIDERS.includes(provider) ? provider : 'KIMI'
   }
 
   getAvailableProviders() {

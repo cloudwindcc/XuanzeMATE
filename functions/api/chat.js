@@ -1,6 +1,11 @@
 const SYSTEM_PROMPT = '请使用Markdown格式回复，包括标题、列表、粗体、表格等来组织内容，使回答更加结构化和易读。保持专业且友好的语气。'
 
 const PROVIDERS = {
+  KIMI: {
+    defaultModel: 'kimi-k2.7-code',
+    baseURL: 'https://api.moonshot.ai/v1',
+    envKeys: ['MOONSHOT_API_KEY', 'KIMI_API_KEY']
+  },
   GEMINI: {
     defaultModel: 'gemini-2.5-pro',
     baseURL: 'https://generativelanguage.googleapis.com/v1beta/models',
@@ -24,7 +29,7 @@ export function onRequestOptions() {
 export async function onRequestPost({ request, env }) {
   try {
     const body = await request.json()
-    const providerType = normalizeProvider(body.provider || env.DEFAULT_AI_PROVIDER || env.VITE_DEFAULT_AI_PROVIDER || 'GEMINI')
+    const providerType = normalizeProvider(body.provider || env.DEFAULT_AI_PROVIDER || env.VITE_DEFAULT_AI_PROVIDER || 'KIMI')
     const provider = getProviderConfig(providerType, env)
     const messages = normalizeMessages(body.messages)
     const options = normalizeOptions(body.options)
@@ -35,7 +40,7 @@ export async function onRequestPost({ request, env }) {
 
     const content = providerType === 'GEMINI'
       ? await callGemini(provider, messages, options)
-      : await callDeepSeek(provider, messages, options)
+      : await callChatCompletions(provider, messages, options, providerType)
 
     return jsonResponse({
       content,
@@ -117,8 +122,9 @@ async function callGemini(provider, messages, options) {
   return content
 }
 
-async function callDeepSeek(provider, messages, options) {
+async function callChatCompletions(provider, messages, options, providerType) {
   const model = options.model || provider.defaultModel
+  const tokenLimitKey = providerType === 'KIMI' ? 'max_completion_tokens' : 'max_tokens'
   const response = await fetch(`${provider.baseURL}/chat/completions`, {
     method: 'POST',
     headers: {
@@ -132,19 +138,19 @@ async function callDeepSeek(provider, messages, options) {
         ...messages
       ],
       temperature: options.temperature,
-      max_tokens: options.maxTokens,
+      [tokenLimitKey]: options.maxTokens,
       stream: false
     })
   })
 
   if (!response.ok) {
-    throw httpError(await safeErrorMessage(response, 'DeepSeek API request failed.'), response.status)
+    throw httpError(await safeErrorMessage(response, `${providerType} API request failed.`), response.status)
   }
 
   const data = await response.json()
   const content = data?.choices?.[0]?.message?.content?.trim()
   if (!content) {
-    throw httpError('DeepSeek API returned an empty response.', 502)
+    throw httpError(`${providerType} API returned an empty response.`, 502)
   }
   return content
 }

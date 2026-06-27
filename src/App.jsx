@@ -12,14 +12,13 @@ function App() {
   const [messages, setMessages] = useState([])
   const [aiService] = useState(new AIService())
   const [isLoading, setIsLoading] = useState(false)
-  const [currentModel, setCurrentModel] = useState('GEMINI')
   const { language } = useLanguage()
   const t = translations[language]
 
   // 初始化AI服务提供商。API密钥只在Cloudflare Pages Function中读取。
   useEffect(() => {
-    aiService.initialize(currentModel)
-  }, [aiService, currentModel])
+    aiService.initialize()
+  }, [aiService])
 
   const handlePromptSelect = async (prompt) => {
     const userMessage = {
@@ -84,13 +83,6 @@ function App() {
     }
   }
 
-  const handleModelChange = async (model) => {
-    // 清除之前的对话历史，避免模型混淆
-    setMessages([])
-    setCurrentModel(model)
-    aiService.switchProvider(model)
-  }
-
   return (
     <div className="app">
       <CyberBackground />
@@ -110,8 +102,6 @@ function App() {
         onSendMessage={handleSendMessage}
         onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
         isLoading={isLoading}
-        currentModel={currentModel}
-        onModelChange={handleModelChange}
       />
     </div>
   )

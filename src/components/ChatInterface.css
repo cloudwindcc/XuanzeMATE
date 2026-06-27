@@ -79,34 +79,6 @@
   font-size: 14px;
 }
 
-.model-selector {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.model-selector select {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(66, 153, 225, 0.3);
-  color: #e2e8f0;
-  padding: 6px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  outline: none;
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-}
-
-.model-selector select:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
-}
-
-.model-selector select option {
-  background: #1f2937;
-  color: #e2e8f0;
-}
-
 .messages-container {
   flex: 1;
   overflow-y: auto;
@@ -323,11 +295,6 @@
   .subtitle {
     font-size: 12px;
     display: none; /* 在小屏幕上隐藏副标题 */
-  }
-  
-  .model-selector select {
-    padding: 4px 8px;
-    font-size: 11px;
   }
   
   .messages-container {

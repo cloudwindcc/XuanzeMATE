@@ -1,6 +1,6 @@
 {
   "name": "xuanzemate",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "AI人生决策伙伴 - 简洁科技感的对话界面，支持14个关键人生选择主题",
   "main": "index.js",
   "scripts": {
