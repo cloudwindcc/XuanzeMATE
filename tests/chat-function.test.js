@@ -51,7 +51,7 @@ test('Kimi is the default provider and uses the server Moonshot key', async () =
   })
 
   assert.equal(response.status, 200)
-  assert.equal(captured.url, 'https://api.moonshot.ai/v1/chat/completions')
+  assert.equal(captured.url, 'https://api.moonshot.cn/v1/chat/completions')
   assert.equal(captured.headers.Authorization, 'Bearer server-moonshot-key')
   assert.equal(captured.body.model, 'kimi-k2.7-code')
   assert.deepEqual(captured.body.messages.map(message => message.role), ['system', 'user'])

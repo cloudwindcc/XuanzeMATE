@@ -3,7 +3,7 @@ const SYSTEM_PROMPT = '请使用Markdown格式回复，包括标题、列表、�
 const PROVIDERS = {
   KIMI: {
     defaultModel: 'kimi-k2.7-code',
-    baseURL: 'https://api.moonshot.ai/v1',
+    baseURL: 'https://api.moonshot.cn/v1',
     envKeys: ['MOONSHOT_API_KEY', 'KIMI_API_KEY']
   },
   GEMINI: {
