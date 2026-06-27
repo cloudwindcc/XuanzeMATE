@@ -2,7 +2,7 @@ const SYSTEM_PROMPT = '请使用Markdown格式回复，包括标题、列表、�
 
 const PROVIDERS = {
   KIMI: {
-    defaultModel: 'kimi-k2.7-code',
+    defaultModel: 'moonshot-v1-auto',
     baseURL: 'https://api.moonshot.cn/v1',
     envKeys: ['MOONSHOT_API_KEY', 'KIMI_API_KEY']
   },
@@ -124,7 +124,6 @@ async function callGemini(provider, messages, options) {
 
 async function callChatCompletions(provider, messages, options, providerType) {
   const model = options.model || provider.defaultModel
-  const tokenLimitKey = providerType === 'KIMI' ? 'max_completion_tokens' : 'max_tokens'
   const response = await fetch(`${provider.baseURL}/chat/completions`, {
     method: 'POST',
     headers: {
@@ -138,7 +137,7 @@ async function callChatCompletions(provider, messages, options, providerType) {
         ...messages
       ],
       temperature: options.temperature,
-      [tokenLimitKey]: options.maxTokens,
+      max_tokens: options.maxTokens,
       stream: false
     })
   })
